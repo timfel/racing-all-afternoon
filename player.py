@@ -1,5 +1,6 @@
 import pygame
 from pygame.locals import *
+import os
 
 ## Player class to represent a single racer ##
 ##############################################
@@ -67,44 +68,44 @@ class Player(object):
         self.flying = False       ## Whether or not we've been launched (jolt reaction due to being hit, for example)
         self.attack = 0.0         ## The length of time we're attacking physically
         self.accumulator = 0      ## Gravity to fall from being launched
-        
+
         ## Personal sound effects
         try:
-            self.engine01 = pygame.mixer.Sound("res/sound/engine01.ogg")
+            self.engine01 = pygame.mixer.Sound(os.path.dirname(__file__) + "/res/sound/engine01.ogg")
             self.engine01.set_volume(0.15)
 
-            self.engine02 = pygame.mixer.Sound("res/sound/engine02.ogg")
+            self.engine02 = pygame.mixer.Sound(os.path.dirname(__file__) + "/res/sound/engine02.ogg")
             self.engine02.set_volume(0.15)
 
-            self.engine03 = pygame.mixer.Sound("res/sound/engine03.ogg")
+            self.engine03 = pygame.mixer.Sound(os.path.dirname(__file__) + "/res/sound/engine03.ogg")
             self.engine03.set_volume(0.15)
 
             ## Item sound effects
-            self.thunder = pygame.mixer.Sound("res/sound/thunder.ogg")
+            self.thunder = pygame.mixer.Sound(os.path.dirname(__file__) + "/res/sound/thunder.ogg")
             self.thunder.set_volume(0.7)
 
-            self.whoosh = pygame.mixer.Sound("res/sound/whoosh.ogg")
+            self.whoosh = pygame.mixer.Sound(os.path.dirname(__file__) + "/res/sound/whoosh.ogg")
             self.whoosh.set_volume(0.7)
 
-            self.whoosh_long = pygame.mixer.Sound("res/sound/long_whoosh.ogg")
+            self.whoosh_long = pygame.mixer.Sound(os.path.dirname(__file__) + "/res/sound/long_whoosh.ogg")
             self.whoosh_long.set_volume(0.7)
 
-            self.crash = pygame.mixer.Sound("res/sound/crash.ogg")
+            self.crash = pygame.mixer.Sound(os.path.dirname(__file__) + "/res/sound/crash.ogg")
             self.crash.set_volume(0.7)
 
-            self.flame = pygame.mixer.Sound("res/sound/flame.ogg")
+            self.flame = pygame.mixer.Sound(os.path.dirname(__file__) + "/res/sound/flame.ogg")
             self.flame.set_volume(0.7)
 
-            self.damage = pygame.mixer.Sound("res/sound/damage.ogg")
+            self.damage = pygame.mixer.Sound(os.path.dirname(__file__) + "/res/sound/damage.ogg")
             self.damage.set_volume(0.7)
 
             ## Unique voices for three situations: Speeding up, hit by item, or using an item
-            voice_1 = pygame.mixer.Sound("res/sound/%d/voice1.ogg" %(num+1))
-            voice_2 = pygame.mixer.Sound("res/sound/%d/voice4.ogg" %(num+1))
-            voice_3 = pygame.mixer.Sound("res/sound/%d/voice2.ogg" %(num+1))
-            voice_4 = pygame.mixer.Sound("res/sound/%d/voice5.ogg" %(num+1))
-            voice_5 = pygame.mixer.Sound("res/sound/%d/voice3.ogg" %(num+1))
-            voice_6 = pygame.mixer.Sound("res/sound/%d/voice6.ogg" %(num+1))
+            voice_1 = pygame.mixer.Sound(os.path.dirname(__file__) + "/res/sound/%d/voice1.ogg" %(num+1))
+            voice_2 = pygame.mixer.Sound(os.path.dirname(__file__) + "/res/sound/%d/voice4.ogg" %(num+1))
+            voice_3 = pygame.mixer.Sound(os.path.dirname(__file__) + "/res/sound/%d/voice2.ogg" %(num+1))
+            voice_4 = pygame.mixer.Sound(os.path.dirname(__file__) + "/res/sound/%d/voice5.ogg" %(num+1))
+            voice_5 = pygame.mixer.Sound(os.path.dirname(__file__) + "/res/sound/%d/voice3.ogg" %(num+1))
+            voice_6 = pygame.mixer.Sound(os.path.dirname(__file__) + "/res/sound/%d/voice6.ogg" %(num+1))
 
             voice_1.set_volume(0.9)
             voice_2.set_volume(0.9)
@@ -127,7 +128,7 @@ class Player(object):
 
     def load_sprites(self, num):
         ## Load main image sheet
-        player = pygame.image.load("res/img/player_%d.png" %(num+1))
+        player = pygame.image.load(os.path.dirname(__file__) + "/res/img/player_%d.png" %(num+1))
 
         ## Subsurfaces for left, right, and center images
         self.player_left = player.subsurface((0,0,64,64))
@@ -144,8 +145,8 @@ class Player(object):
         self.player_straight.set_colorkey((0,255,255))
 
         ## Load frozen image sheet
-        frozen = pygame.image.load("res/img/player_%d_frozen.png" %(num+1))
-        
+        frozen = pygame.image.load(os.path.dirname(__file__) + "/res/img/player_%d_frozen.png" %(num+1))
+
         ## Subsurfaces for left, right, and center images
         self.player_left_frozen = frozen.subsurface((0,0,64,64))
         self.player_right_frozen = frozen.subsurface((128,0,64,64))
@@ -170,7 +171,7 @@ class Player(object):
         stat_mod = [0,0,0,0,0]
 
         ## Get the persona data file for item list and stat mods
-        f = open("res/persona/p%03d.dat" %(p_index+1)).readlines()
+        f = open(os.path.dirname(__file__) + "/res/persona/p%03d.dat" %(p_index+1)).readlines()
         for line in f:
             ## Get stat modifiers
             if line.find("name = ") != -1:
@@ -211,7 +212,7 @@ class Player(object):
 
         ## Open a character data file; note that this does not check for errors and will
         ## crash the game if the data file is not found (this should never happen, though)
-        f = open("res/char/%d.dat" %(num+1)).readlines()
+        f = open(os.path.dirname(__file__) + "/res/char/%d.dat" %(num+1)).readlines()
         for line in f:
             ## Get the name string
             if line.find("name = ") != -1:
@@ -241,4 +242,3 @@ class Player(object):
                 self.health = int(line.strip("health = ")) - engine*100
                 self.display_health = self.health
                 self.max_health = float(self.health)
-

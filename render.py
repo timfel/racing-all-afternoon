@@ -1,4 +1,4 @@
-import pygame, random
+import pygame, random, os
 from pygame.locals import *
 from const import *
 

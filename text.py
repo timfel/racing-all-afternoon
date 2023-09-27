@@ -1,11 +1,12 @@
 import pygame
 from pygame.locals import *
+import os
 
 ## Text wrapper to handle TTF fonts ##
 ######################################
 class Text(object):
     def __init__(self, string, pos, color=[255,255,255], size=32, num=1, border=False, outline=[0,0,0]):
-        self.font = pygame.font.Font("res/font/font%d.ttf" %num, size)
+        self.font = pygame.font.Font(os.path.dirname(__file__) + "/res/font/font%d.ttf" %num, size)
         self.x = pos[0]        ## X topleft
         self.y = pos[1]        ## Y topleft
         self.color = color     ## Color tuple

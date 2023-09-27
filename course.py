@@ -1,4 +1,4 @@
-import random
+import random, os
 
 ## Course texture colors ##
 ###########################
@@ -34,7 +34,7 @@ class Course(object):
         self.road = 2  ## Road
 
         ## Load texture colors to overwrite defaults
-        f = open("res/stage/%d.dat" %num, "r").readlines()
+        f = open(os.path.dirname(__file__) + "/res/stage/%d.dat" %num, "r").readlines()
         for line in f:
             if line.startswith("fog = "): ## Fog color to fade into
                 temp = line.strip("fog = ").split(",")
