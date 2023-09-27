@@ -399,6 +399,8 @@ class Main:
             f.write("engine_class = %d\n" %self.engine_class)
 
             f.close()
+        except OSError:
+            return
 
     def splash(self):
         ## The splash screen that plays when you boot up the game
@@ -2173,7 +2175,10 @@ class Main:
             new_unlock_9 = self.unlocked[8]
             new_unlock_10 = self.unlocked[9]
 
-            f = open(os.path.dirname(__file__) + "/res/data/data.dat", "r+")
+            try:
+                f = open(os.path.dirname(__file__) + "/res/data/data.dat", "r+")
+            except OSError:
+                return
 
             ## Achievements 0 - Use the same move 5 times or more
             if self.achievements[0] == 0 and self.mode == 7 and self.players[0].health == int(self.players[0].max_health):
@@ -2396,6 +2401,8 @@ class Main:
                 f.write("0\n")
 
             f.close()
+        except OSError:
+            return self.unlocked
 
         return new_unlock_1, new_unlock_2, new_unlock_3, new_unlock_4, new_unlock_5, new_unlock_6, new_unlock_7, new_unlock_8, new_unlock_9, new_unlock_10
 
