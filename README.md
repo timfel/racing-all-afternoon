@@ -1,3 +1,12 @@
+# Tweaked to work with GraalPy Standalone
+
+This project runs just fine (and fast!) on GraalPy 23.1. This fork includes some tweaks to build standalone binaries that just work with it.
+```
+graalpy -m standalone native -m racing-all-afternoon --venv my-venv-with-pygame -o racing-all-afternoon.exe
+```
+
+Now "racing-all-afternoon.exe" includes everything you need to run this game: on macOS and Linux (Windows coming soon).
+
 # Persona 4: Racing All Afternoon
 
 ## Overview
