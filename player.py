@@ -1,5 +1,6 @@
 import pygame
 from pygame.locals import *
+from util import vfs_open
 import os
 
 ## Player class to represent a single racer ##
@@ -71,41 +72,41 @@ class Player(object):
 
         ## Personal sound effects
         try:
-            self.engine01 = pygame.mixer.Sound(os.path.dirname(__file__) + "/res/sound/engine01.ogg")
+            self.engine01 = pygame.mixer.Sound(vfs_open(os.path.dirname(__file__) + "/res/sound/engine01.ogg"))
             self.engine01.set_volume(0.15)
 
-            self.engine02 = pygame.mixer.Sound(os.path.dirname(__file__) + "/res/sound/engine02.ogg")
+            self.engine02 = pygame.mixer.Sound(vfs_open(os.path.dirname(__file__) + "/res/sound/engine02.ogg"))
             self.engine02.set_volume(0.15)
 
-            self.engine03 = pygame.mixer.Sound(os.path.dirname(__file__) + "/res/sound/engine03.ogg")
+            self.engine03 = pygame.mixer.Sound(vfs_open(os.path.dirname(__file__) + "/res/sound/engine03.ogg"))
             self.engine03.set_volume(0.15)
 
             ## Item sound effects
-            self.thunder = pygame.mixer.Sound(os.path.dirname(__file__) + "/res/sound/thunder.ogg")
+            self.thunder = pygame.mixer.Sound(vfs_open(os.path.dirname(__file__) + "/res/sound/thunder.ogg"))
             self.thunder.set_volume(0.7)
 
-            self.whoosh = pygame.mixer.Sound(os.path.dirname(__file__) + "/res/sound/whoosh.ogg")
+            self.whoosh = pygame.mixer.Sound(vfs_open(os.path.dirname(__file__) + "/res/sound/whoosh.ogg"))
             self.whoosh.set_volume(0.7)
 
-            self.whoosh_long = pygame.mixer.Sound(os.path.dirname(__file__) + "/res/sound/long_whoosh.ogg")
+            self.whoosh_long = pygame.mixer.Sound(vfs_open(os.path.dirname(__file__) + "/res/sound/long_whoosh.ogg"))
             self.whoosh_long.set_volume(0.7)
 
-            self.crash = pygame.mixer.Sound(os.path.dirname(__file__) + "/res/sound/crash.ogg")
+            self.crash = pygame.mixer.Sound(vfs_open(os.path.dirname(__file__) + "/res/sound/crash.ogg"))
             self.crash.set_volume(0.7)
 
-            self.flame = pygame.mixer.Sound(os.path.dirname(__file__) + "/res/sound/flame.ogg")
+            self.flame = pygame.mixer.Sound(vfs_open(os.path.dirname(__file__) + "/res/sound/flame.ogg"))
             self.flame.set_volume(0.7)
 
-            self.damage = pygame.mixer.Sound(os.path.dirname(__file__) + "/res/sound/damage.ogg")
+            self.damage = pygame.mixer.Sound(vfs_open(os.path.dirname(__file__) + "/res/sound/damage.ogg"))
             self.damage.set_volume(0.7)
 
             ## Unique voices for three situations: Speeding up, hit by item, or using an item
-            voice_1 = pygame.mixer.Sound(os.path.dirname(__file__) + "/res/sound/%d/voice1.ogg" %(num+1))
-            voice_2 = pygame.mixer.Sound(os.path.dirname(__file__) + "/res/sound/%d/voice4.ogg" %(num+1))
-            voice_3 = pygame.mixer.Sound(os.path.dirname(__file__) + "/res/sound/%d/voice2.ogg" %(num+1))
-            voice_4 = pygame.mixer.Sound(os.path.dirname(__file__) + "/res/sound/%d/voice5.ogg" %(num+1))
-            voice_5 = pygame.mixer.Sound(os.path.dirname(__file__) + "/res/sound/%d/voice3.ogg" %(num+1))
-            voice_6 = pygame.mixer.Sound(os.path.dirname(__file__) + "/res/sound/%d/voice6.ogg" %(num+1))
+            voice_1 = pygame.mixer.Sound(vfs_open(os.path.dirname(__file__) + "/res/sound/%d/voice1.ogg" %(num+1)))
+            voice_2 = pygame.mixer.Sound(vfs_open(os.path.dirname(__file__) + "/res/sound/%d/voice4.ogg" %(num+1)))
+            voice_3 = pygame.mixer.Sound(vfs_open(os.path.dirname(__file__) + "/res/sound/%d/voice2.ogg" %(num+1)))
+            voice_4 = pygame.mixer.Sound(vfs_open(os.path.dirname(__file__) + "/res/sound/%d/voice5.ogg" %(num+1)))
+            voice_5 = pygame.mixer.Sound(vfs_open(os.path.dirname(__file__) + "/res/sound/%d/voice3.ogg" %(num+1)))
+            voice_6 = pygame.mixer.Sound(vfs_open(os.path.dirname(__file__) + "/res/sound/%d/voice6.ogg" %(num+1)))
 
             voice_1.set_volume(0.9)
             voice_2.set_volume(0.9)
@@ -128,7 +129,7 @@ class Player(object):
 
     def load_sprites(self, num):
         ## Load main image sheet
-        player = pygame.image.load(os.path.dirname(__file__) + "/res/img/player_%d.png" %(num+1))
+        player = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/player_%d.png" %(num+1)))
 
         ## Subsurfaces for left, right, and center images
         self.player_left = player.subsurface((0,0,64,64))
@@ -145,7 +146,7 @@ class Player(object):
         self.player_straight.set_colorkey((0,255,255))
 
         ## Load frozen image sheet
-        frozen = pygame.image.load(os.path.dirname(__file__) + "/res/img/player_%d_frozen.png" %(num+1))
+        frozen = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/player_%d_frozen.png" %(num+1)))
 
         ## Subsurfaces for left, right, and center images
         self.player_left_frozen = frozen.subsurface((0,0,64,64))

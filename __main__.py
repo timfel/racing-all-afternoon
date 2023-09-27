@@ -10,6 +10,7 @@ from collections import namedtuple
 from pygame.locals import *
 from const import *
 from render import *
+from util import vfs_open
 
 from course import Course
 from text import Text
@@ -37,7 +38,7 @@ class Main:
 
         ## Set the caption and icon
         pygame.display.set_caption("P4R: Persona 4 Racing All Afternoon")
-        icon = pygame.image.load(os.path.dirname(__file__) + "/res/img/icon.png")
+        icon = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/icon.png"))
         pygame.display.set_icon(icon)
 
         ## Fullscreen data
@@ -71,7 +72,7 @@ class Main:
                          False, False, False, False, False) ## Whether we've unlocked characters
 
         ## Universal graphics stuff
-        self.logo = pygame.image.load(os.path.dirname(__file__) + "/res/img/logo.png")
+        self.logo = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/logo.png"))
         self.logo = self.logo.convert_alpha()                         ## Handles transparencies and fade-in for logo
         self.logo_mask = pygame.Surface((720,480))
         self.logo_mask.fill((255,255,255))
@@ -79,11 +80,11 @@ class Main:
         self.logo_mask.set_alpha(255)
         self.logo_alpha = 255
 
-        self.credits_01 = pygame.image.load(os.path.dirname(__file__) + "/res/img/credits_01.png").convert()
-        self.credits_02 = pygame.image.load(os.path.dirname(__file__) + "/res/img/credits_02.png").convert()
+        self.credits_01 = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/credits_01.png")).convert()
+        self.credits_02 = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/credits_02.png")).convert()
 
-        self.red_arrow = pygame.image.load(os.path.dirname(__file__) + "/res/img/red_arrow.png")
-        self.yellow_arrow = pygame.image.load(os.path.dirname(__file__) + "/res/img/yellow_arrow.png")
+        self.red_arrow = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/red_arrow.png"))
+        self.yellow_arrow = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/yellow_arrow.png"))
         self.arrow_tick = 0
 
         self.bg_top = pygame.Surface((self.width, self.height/3+29))
@@ -93,89 +94,89 @@ class Main:
         self.bg_bot = pygame.Surface((self.width, self.height/3))
         self.bg_bot = self.bg_bot.convert()
 
-        self.overlay = pygame.image.load(os.path.dirname(__file__) + "/res/img/overlay.png").convert_alpha()
-        self.bar_1 = pygame.image.load(os.path.dirname(__file__) + "/res/img/bar_1.png").convert_alpha()
-        self.bar_2 = pygame.image.load(os.path.dirname(__file__) + "/res/img/bar_2.png").convert_alpha()
-        self.bar_3 = pygame.image.load(os.path.dirname(__file__) + "/res/img/bar_3.png").convert_alpha()
+        self.overlay = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/overlay.png")).convert_alpha()
+        self.bar_1 = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/bar_1.png")).convert_alpha()
+        self.bar_2 = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/bar_2.png")).convert_alpha()
+        self.bar_3 = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/bar_3.png")).convert_alpha()
 
-        self.up_arrow = pygame.image.load(os.path.dirname(__file__) + "/res/img/up_arrow.png")
-        self.down_arrow = pygame.image.load(os.path.dirname(__file__) + "/res/img/down_arrow.png")
-        self.left_arrow = pygame.image.load(os.path.dirname(__file__) + "/res/img/left_arrow.png")
-        self.right_arrow = pygame.image.load(os.path.dirname(__file__) + "/res/img/right_arrow.png")
+        self.up_arrow = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/up_arrow.png"))
+        self.down_arrow = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/down_arrow.png"))
+        self.left_arrow = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/left_arrow.png"))
+        self.right_arrow = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/right_arrow.png"))
         self.arrow_pos = 0
 
-        self.place_1 = pygame.image.load(os.path.dirname(__file__) + "/res/img/place_1.png")
-        self.place_2 = pygame.image.load(os.path.dirname(__file__) + "/res/img/place_2.png")
-        self.place_3 = pygame.image.load(os.path.dirname(__file__) + "/res/img/place_3.png")
-        self.place_4 = pygame.image.load(os.path.dirname(__file__) + "/res/img/place_4.png")
-        self.place_5 = pygame.image.load(os.path.dirname(__file__) + "/res/img/place_5.png")
-        self.place_6 = pygame.image.load(os.path.dirname(__file__) + "/res/img/place_6.png")
+        self.place_1 = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/place_1.png"))
+        self.place_2 = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/place_2.png"))
+        self.place_3 = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/place_3.png"))
+        self.place_4 = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/place_4.png"))
+        self.place_5 = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/place_5.png"))
+        self.place_6 = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/place_6.png"))
 
-        lightning_1 = pygame.image.load(os.path.dirname(__file__) + "/res/img/lightning_1.png").convert_alpha()
-        lightning_2 = pygame.image.load(os.path.dirname(__file__) + "/res/img/lightning_2.png").convert_alpha()
+        lightning_1 = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/lightning_1.png")).convert_alpha()
+        lightning_2 = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/lightning_2.png")).convert_alpha()
         self.lightning_img = [lightning_1, lightning_2]
 
         self.portraits = []
         self.silhouettes = []
         for i in range(19):
-            temp = pygame.image.load(os.path.dirname(__file__) + "/res/img/portrait_%d.png" %(i+1))
+            temp = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/portrait_%d.png" %(i+1)))
             self.portraits.append(temp)
             if i < 17:
-                temp = pygame.image.load(os.path.dirname(__file__) + "/res/img/silhouette_%d.png" %(i+1))
+                temp = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/silhouette_%d.png" %(i+1)))
                 self.silhouettes.append(temp)
 
         ## Dialogue Box
-        self.text_box = pygame.image.load(os.path.dirname(__file__) + "/res/img/text_box.png")
+        self.text_box = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/text_box.png"))
 
         ## Persona images
         self.persona_img = []
         for i in range(84):
-            temp = pygame.image.load(os.path.dirname(__file__) + "/res/img/p%03d.png" %(i+1))
+            temp = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/p%03d.png" %(i+1)))
             self.persona_img.append(temp)
 
         ## Lit-up skill images on character selection screen
         self.small_img = []
         for i in range(7):
-            temp = pygame.image.load(os.path.dirname(__file__) + "/res/img/small_%d.png" %(i+1))
+            temp = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/small_%d.png" %(i+1)))
             self.small_img.append(temp)
 
         ## Darkened skill images on character selection screen
         self.dark_img = []
         for i in range(7):
-            temp = pygame.image.load(os.path.dirname(__file__) + "/res/img/dark_%d.png" %(i+1))
+            temp = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/dark_%d.png" %(i+1)))
             self.dark_img.append(temp)
 
         ## Rotating images for menus
         self.rotate_img = []
         for i in range(10):
-            temp = pygame.image.load(os.path.dirname(__file__) + "/res/img/menu_rotate_%02d.png" %(i+1))
+            temp = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/menu_rotate_%02d.png" %(i+1)))
             self.rotate_img.append(temp)
 
         self.rotate_angle = 0.0
 
         ## Skill images for in-race purposes
 
-        item_img_0 = pygame.image.load(os.path.dirname(__file__) + "/res/img/mystery.png")
-        item_img_1 = pygame.image.load(os.path.dirname(__file__) + "/res/img/item_1.png")
-        item_img_2 = pygame.image.load(os.path.dirname(__file__) + "/res/img/item_2.png")
-        item_img_3 = pygame.image.load(os.path.dirname(__file__) + "/res/img/item_3.png")
-        item_img_4 = pygame.image.load(os.path.dirname(__file__) + "/res/img/item_4.png")
-        item_img_5 = pygame.image.load(os.path.dirname(__file__) + "/res/img/item_5.png")
-        item_img_6 = pygame.image.load(os.path.dirname(__file__) + "/res/img/item_6.png")
-        item_img_7 = pygame.image.load(os.path.dirname(__file__) + "/res/img/item_7.png")
-        item_img_8 = pygame.image.load(os.path.dirname(__file__) + "/res/img/item_8.png")
-        item_img_9 = pygame.image.load(os.path.dirname(__file__) + "/res/img/item_9.png")
+        item_img_0 = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/mystery.png"))
+        item_img_1 = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/item_1.png"))
+        item_img_2 = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/item_2.png"))
+        item_img_3 = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/item_3.png"))
+        item_img_4 = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/item_4.png"))
+        item_img_5 = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/item_5.png"))
+        item_img_6 = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/item_6.png"))
+        item_img_7 = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/item_7.png"))
+        item_img_8 = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/item_8.png"))
+        item_img_9 = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/item_9.png"))
         self.item_img = [item_img_0,item_img_1,item_img_2,item_img_3,
                          item_img_4,item_img_5,item_img_6,item_img_9,
                          item_img_7,item_img_8]
 
         ## Lap reminder images; we don't use text because text rending is hella slow
-        lap_img_1 = pygame.image.load(os.path.dirname(__file__) + "/res/img/lap_1.png")
-        lap_img_2 = pygame.image.load(os.path.dirname(__file__) + "/res/img/lap_2.png")
-        lap_img_3 = pygame.image.load(os.path.dirname(__file__) + "/res/img/lap_3.png")
-        lap_img_4 = pygame.image.load(os.path.dirname(__file__) + "/res/img/lap_4.png")
-        lap_img_5 = pygame.image.load(os.path.dirname(__file__) + "/res/img/lap_5.png")
-        lap_img_6 = pygame.image.load(os.path.dirname(__file__) + "/res/img/lap_6.png")
+        lap_img_1 = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/lap_1.png"))
+        lap_img_2 = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/lap_2.png"))
+        lap_img_3 = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/lap_3.png"))
+        lap_img_4 = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/lap_4.png"))
+        lap_img_5 = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/lap_5.png"))
+        lap_img_6 = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/lap_6.png"))
         self.lap_img = [lap_img_1,lap_img_2,lap_img_3,
                         lap_img_4,lap_img_5,lap_img_6]
 
@@ -187,7 +188,7 @@ class Main:
         ## One of the rare instances we use text rendering in-race: Counting down
         self.countdown_text = Text("", (0,0), size=256, num=2)
 
-        self.shadow = pygame.image.load(os.path.dirname(__file__) + "/res/img/shadow.png")
+        self.shadow = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/shadow.png"))
 
         ## Fade in the stage names
         self.stage_mask = pygame.Surface((720,480))
@@ -219,19 +220,19 @@ class Main:
 
         ## Sound effects
         if self.is_audio_enabled:
-            self.scroll_sound = pygame.mixer.Sound(os.path.dirname(__file__) + "/res/sound/scroll.ogg")             ## Used for item scrolling
+            self.scroll_sound = pygame.mixer.Sound(vfs_open(os.path.dirname(__file__) + "/res/sound/scroll.ogg"))             ## Used for item scrolling
             self.scroll_sound.set_volume(0.2)
-            self.countdown_start = pygame.mixer.Sound(os.path.dirname(__file__) + "/res/sound/countdown_start.ogg") ## Used when counting down 3, 2, 1...
+            self.countdown_start = pygame.mixer.Sound(vfs_open(os.path.dirname(__file__) + "/res/sound/countdown_start.ogg")) ## Used when counting down 3, 2, 1...
             self.countdown_start.set_volume(0.2)
-            self.countdown_end = pygame.mixer.Sound(os.path.dirname(__file__) + "/res/sound/countdown_end.ogg")     ## Used to kick off a race
+            self.countdown_end = pygame.mixer.Sound(vfs_open(os.path.dirname(__file__) + "/res/sound/countdown_end.ogg"))     ## Used to kick off a race
             self.countdown_end.set_volume(0.2)
-            self.menu_sound = pygame.mixer.Sound(os.path.dirname(__file__) + "/res/sound/menu.ogg")                 ## Used when a menu selection is made
+            self.menu_sound = pygame.mixer.Sound(vfs_open(os.path.dirname(__file__) + "/res/sound/menu.ogg"))                 ## Used when a menu selection is made
             self.menu_sound.set_volume(0.5)
-            self.select_sound = pygame.mixer.Sound(os.path.dirname(__file__) + "/res/sound/select.ogg")             ## Used when moving through a menu
+            self.select_sound = pygame.mixer.Sound(vfs_open(os.path.dirname(__file__) + "/res/sound/select.ogg"))             ## Used when moving through a menu
             self.select_sound.set_volume(0.5)
-            self.confirm_sound = pygame.mixer.Sound(os.path.dirname(__file__) + "/res/sound/confirm.ogg")            ## Used when moving through a menu
+            self.confirm_sound = pygame.mixer.Sound(vfs_open(os.path.dirname(__file__) + "/res/sound/confirm.ogg"))            ## Used when moving through a menu
             self.confirm_sound.set_volume(0.5)
-            self.text_scroll = pygame.mixer.Sound(os.path.dirname(__file__) + "/res/sound/text_scroll.ogg")
+            self.text_scroll = pygame.mixer.Sound(vfs_open(os.path.dirname(__file__) + "/res/sound/text_scroll.ogg"))
             self.text_scroll.set_volume(0.9)
 
         ## Base speeds for cars
@@ -264,15 +265,15 @@ class Main:
         self.mudo_mask = self.mudo_mask.convert()
 
         ## Load the title splash
-        self.title_img = pygame.image.load(os.path.dirname(__file__) + "/res/img/title_img.png")
+        self.title_img = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/title_img.png"))
         self.title_back = []
         for i in range(1,8):
-            temp = pygame.image.load(os.path.dirname(__file__) + "/res/img/title_back_%02d.png" %i)
+            temp = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/title_back_%02d.png" %i))
             self.title_back.append(temp)
 
         self.menu_back = []
         for i in range(1,6):
-            temp = pygame.image.load(os.path.dirname(__file__) + "/res/img/menu_back_%02d.png" %i)
+            temp = pygame.image.load(vfs_open(os.path.dirname(__file__) + "/res/img/menu_back_%02d.png" %i))
             self.menu_back.append(temp)
 
         ## Joystick initialization
@@ -447,7 +448,7 @@ class Main:
 
         ## Load the title screen BGM
         if self.music_index == 0:
-            pygame.mixer.music.load(os.path.dirname(__file__) + "/res/sound/bgm01.ogg")
+            pygame.mixer.music.load(vfs_open(os.path.dirname(__file__) + "/res/sound/bgm01.ogg"))
             pygame.mixer.music.set_volume(0.8)
             pygame.mixer.music.play(-1)
         ## Enter title screen
@@ -1517,7 +1518,7 @@ class Main:
                         self.win_text[6].draw(screen)
                     else:
                         if not self.has_changed_music and self.music_index == 0 and not self.pause:
-                            pygame.mixer.music.load(os.path.dirname(__file__) + "/res/sound/bgm03.ogg")
+                            pygame.mixer.music.load(vfs_open(os.path.dirname(__file__) + "/res/sound/bgm03.ogg"))
                             pygame.mixer.music.set_volume(0.5)
                             pygame.mixer.music.play(-1)
                             self.has_changed_music = True
@@ -3320,7 +3321,7 @@ class Main:
                                             self.music_index = 0
                                     if self.music_index == 0:
                                         pygame.mixer.music.stop()
-                                        pygame.mixer.music.load(os.path.dirname(__file__) + "/res/sound/bgm01.ogg")
+                                        pygame.mixer.music.load(vfs_open(os.path.dirname(__file__) + "/res/sound/bgm01.ogg"))
                                         pygame.mixer.music.set_volume(0.8)
                                         pygame.mixer.music.play(-1)
                                     else:
@@ -3359,7 +3360,7 @@ class Main:
                                     self.engine_class = 1
                                     if self.music_index == 0:
                                         pygame.mixer.music.stop()
-                                        pygame.mixer.music.load(os.path.dirname(__file__) + "/res/sound/bgm01.ogg")
+                                        pygame.mixer.music.load(vfs_open(os.path.dirname(__file__) + "/res/sound/bgm01.ogg"))
                                         pygame.mixer.music.set_volume(0.8)
                                         pygame.mixer.music.play(-1)
                                     else:
@@ -3585,7 +3586,7 @@ class Main:
                                         self.music_index = 0
                                 if self.music_index == 0:
                                     pygame.mixer.music.stop()
-                                    pygame.mixer.music.load(os.path.dirname(__file__) + "/res/sound/bgm01.ogg")
+                                    pygame.mixer.music.load(vfs_open(os.path.dirname(__file__) + "/res/sound/bgm01.ogg"))
                                     pygame.mixer.music.set_volume(0.8)
                                     pygame.mixer.music.play(-1)
                                 else:
@@ -3624,7 +3625,7 @@ class Main:
                                 self.engine_class = 1
                                 if self.music_index == 0:
                                     pygame.mixer.music.stop()
-                                    pygame.mixer.music.load(os.path.dirname(__file__) + "/res/sound/bgm01.ogg")
+                                    pygame.mixer.music.load(vfs_open(os.path.dirname(__file__) + "/res/sound/bgm01.ogg"))
                                     pygame.mixer.music.set_volume(0.8)
                                     pygame.mixer.music.play(-1)
                                 else:
@@ -3716,7 +3717,7 @@ class Main:
 
     def reset_main(self, course, is_title=False):
         if not is_title and self.music_index == 0:
-            pygame.mixer.music.load(os.path.dirname(__file__) + "/res/sound/course%02d.ogg" %(course+1))
+            pygame.mixer.music.load(vfs_open(os.path.dirname(__file__) + "/res/sound/course%02d.ogg" %(course+1)))
             pygame.mixer.music.set_volume(0.5)
 
         self.reset(self.players, is_title, course)
@@ -3740,7 +3741,7 @@ class Main:
         text1 = Text("", (0,0))
         if self.music_index == 0:
             pygame.mixer.music.stop()
-            pygame.mixer.music.load(os.path.dirname(__file__) + "/res/sound/bgm02.ogg")
+            pygame.mixer.music.load(vfs_open(os.path.dirname(__file__) + "/res/sound/bgm02.ogg"))
             pygame.mixer.music.set_volume(0.8)
             pygame.mixer.music.play(-1)
 
@@ -3780,7 +3781,7 @@ class Main:
 
         if self.music_index == 0:
             pygame.mixer.music.stop()
-            pygame.mixer.music.load(os.path.dirname(__file__) + "/res/sound/bgm15.ogg")
+            pygame.mixer.music.load(vfs_open(os.path.dirname(__file__) + "/res/sound/bgm15.ogg"))
             pygame.mixer.music.set_volume(0.8)
             pygame.mixer.music.play(-1)
 
@@ -3920,7 +3921,7 @@ class Main:
                 current_bgm = self.scenes[current_scene].bgm
                 pygame.mixer.music.stop()
                 if current_bgm != 0:
-                    pygame.mixer.music.load(os.path.dirname(__file__) + "/res/sound/bgm%02d.ogg" %(self.scenes[current_scene].bgm))
+                    pygame.mixer.music.load(vfs_open(os.path.dirname(__file__) + "/res/sound/bgm%02d.ogg" %(self.scenes[current_scene].bgm)))
                     pygame.mixer.music.set_volume(0.5)
                     pygame.mixer.music.play(-1)
 
@@ -4034,7 +4035,7 @@ class Main:
         text1 = Text("", (0,0))
         if self.music_index == 0:
             pygame.mixer.music.stop()
-            pygame.mixer.music.load(os.path.dirname(__file__) + "/res/sound/bgm04.ogg")
+            pygame.mixer.music.load(vfs_open(os.path.dirname(__file__) + "/res/sound/bgm04.ogg"))
             pygame.mixer.music.set_volume(0.8)
             pygame.mixer.music.play(-1)
 
